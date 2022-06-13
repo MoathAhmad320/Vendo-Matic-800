@@ -27,6 +27,13 @@ public class VendingMachineCLI {
 	}
 
 	public static void main(String[] args) {
+		Inventory testRun = new Inventory();
+		testRun.restockInventory();
+
+		Money testMoney = new Money();
+		testMoney.setCurrentAmount(57.35);
+		testMoney.change();
+
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
