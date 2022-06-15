@@ -8,13 +8,13 @@ public class InventoryTest {
     @Test
     public void restockInventoryTest(){
 
-        //ARRANGE
+//        //ARRANGE
         Inventory inventoryTest = new Inventory();
 
-        //ACT
+//        //ACT
         inventoryTest.restockInventory();
 
-        //ASSERT
+//        //ASSERT
         Assert.assertEquals("Potato Crisps", inventoryTest.getItemName().get("A1"));
         Assert.assertEquals("Chip", inventoryTest.getItemType().get("A1"));
         Assert.assertEquals(3.05, inventoryTest.getItemPrice().get("A1"),0);

@@ -6,15 +6,26 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Scanner;
 
 public class VendingLog {
+    private static File logFile;
+
+    public static void setInventoryPath(){
+        System.out.println("Please enter filepath for Audit Log file: ");
+        Scanner input = new Scanner(System.in);
+        logFile = new File(input.nextLine());
+        if (logFile.isFile()){
+            return;
+        } else{
+            System.out.println("Invalid filepath entered. File not found");
+        }
+        input.close();
+    }
 
     public static void log(String message){
-        File logFile = new File("C:\\Users\\OWNER\\OneDrive\\Documents\\Java\\Merit America\\Week 9 - 10\\capstone-1\\src\\main\\java\\com\\techelevator\\view\\logs\\Log.txt");
-
         try(PrintWriter logWriter = new PrintWriter(new FileOutputStream(logFile, true))){
             logWriter.println(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS) + " " + message);
-
         }catch (Exception e){
             System.err.println(e.getMessage());
         }
