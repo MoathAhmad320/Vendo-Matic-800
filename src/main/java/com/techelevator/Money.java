@@ -1,16 +1,16 @@
 package com.techelevator;
 
-import com.techelevator.view.logs.VendingLog;
-import java.math.BigDecimal;
+import com.techelevator.view.Logs.VendingLog;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Money {
     private static int currentAmount;
-    private static Map<Double, Integer> moneyCount = new HashMap<>();
+    private static Map<Double, Integer> changeCount = new HashMap<>();
     private static int billFed;
-//    changed currentamount to int for arithmetic operations and to avoid excessive parsing
+//    changed currentamount to int for arithmetic operations and moneycount key to double to avoid excessive parsing
 
     public static int getBillFed() {
         return billFed;
@@ -21,11 +21,12 @@ public class Money {
     }
     //    added method for displaying currentamount as a currency value
     public static double displayCurrentAmount(){
+        if(currentAmount>=0){
         return (currentAmount/100.0);
-    }
+    }else {return 0.0;}}
 
-    public void setCurrentAmount(int currentAmount) {
-        this.currentAmount = currentAmount;}
+    public static void setCurrentAmount(int cAmount) {
+        currentAmount = cAmount;}
 
 
     public static void moneyInput(int amount){
@@ -61,12 +62,12 @@ public class Money {
     public static void changeCalculator(int amount){
         int quantity = 0;
         quantity = currentAmount/amount;
-        moneyCount.put((amount/100.0),quantity);
+        changeCount.put((amount/100.0),quantity);
         currentAmount-=(amount*quantity);
     }
 //    adjusted changed method to account for ints instead of doubles
 
-    public static void changeCalculator(){
+    public static void changeDivider(){
 //        added  20,50, and 100 dollar change statements and added change to audit log
         VendingLog.log("Change Dispensed $"+Money.displayCurrentAmount()+" $0.00");
         while (currentAmount > 0){
@@ -92,10 +93,10 @@ public class Money {
                 changeCalculator(5);
             }
         }}
-    //        Split method because it was too long and harder to test
+    //        Split method because it was too long and performed multiple functions.
     public static void changePrinter(){
         System.out.println("Your change is:");
-        for(Map.Entry<Double, Integer> billPair : moneyCount.entrySet() ){
+        for(Map.Entry<Double, Integer> billPair :Money.changeCount.entrySet() ){
             if (billPair.getKey()>=1){
                 System.out.println((billPair.getValue())+" $"+billPair.getKey()+"0 bill"+(billPair.getValue()>1?"s":""));}
             else if(billPair.getKey()==.25){
@@ -104,6 +105,7 @@ public class Money {
                 System.out.println(billPair.getValue()+" dime"+(billPair.getValue()>1?"s":""));}
             else if(billPair.getKey()==.05){
                 System.out.println(billPair.getValue()+" nickle"+(billPair.getValue()>1?"s":""));}
-        }moneyCount.clear();
+        }changeCount.clear();
     }}
+
 //added clear map line so change runs correctly

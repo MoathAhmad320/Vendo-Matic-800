@@ -1,6 +1,6 @@
 package com.techelevator;
 
-import com.techelevator.view.logs.VendingLog;
+import com.techelevator.view.Logs.VendingLog;
 import java.io.File;
 import java.util.*;
 
@@ -8,35 +8,16 @@ public class Inventory {
     private static Map<String,String> itemType = new HashMap<>();
     private static Map<String, Integer> itemPrice = new HashMap<>();
     private static Map<String, Integer> itemQuantity = new HashMap<>();
+    private static Map<String, Double> salesMap = new HashMap<>();
     private static File inventoryFile;
     private static List<String> itemSlot=new ArrayList<>();
     private static Map<String,String> itemName = new HashMap<>();
-    //added setters and getters for unit testing and changed itemprice from double to int
-    public static void setItemName(String key, String value) {
-        Inventory.itemName.put(key,value);
-    }
 
-    public static void setItemType(String key, String value) {
-        Inventory.itemType.put(key,value);
-    }
 
-    public static void setItemPrice(String key, int value) {
-        Inventory.itemPrice.put(key,value);
-    }
-
-    public static void setItemQuantity(String key, int value) {
-        Inventory.itemQuantity.put(key,value);
-    }
-
-    public static void setItemSlot(String item) {
-        Inventory.itemSlot.add(item);
-    }
     public static void setInventoryFile(String file){
         Inventory.inventoryFile= new File(file);
     }
-    public static List<String> getItemSlot() {
-        return itemSlot;
-    }
+
 
     public static String getUserChoice() {
         return userChoice;
@@ -60,6 +41,9 @@ public class Inventory {
         return itemQuantity;
     }
 
+    public static Map<String, Double> getSalesMap() {
+        return salesMap;
+    }
 
     public static void setInventoryPath(){
 //        added try catch block to handle input exceptions, and end program if no filepath set.
@@ -139,4 +123,10 @@ public class Inventory {
 
         }}catch(Exception e){
             System.out.println("Sorry invalid slot entry, Please try again.");
-        }}}
+        }}
+//    method for sales report
+    public static void salesReportMapping() {
+        for (String x : itemSlot) {
+            salesMap.put(itemName.get(x), ((itemPrice.get(x) * (5.0 - itemQuantity.get(x))) / 100.0));
+        }
+    }}

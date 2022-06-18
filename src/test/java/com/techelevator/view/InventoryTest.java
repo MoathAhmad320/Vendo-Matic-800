@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,8 +24,5 @@ public class InventoryTest {
         Assert.assertEquals("Chip", Inventory.getItemType().get("A1"));
         Assert.assertEquals(305.0, Inventory.getItemPrice().get("A1"), 0);
         Assert.assertEquals(5, Inventory.getItemQuantity().get("A1"), 0);
-    }
-@Test
-    public void show_inventory_working_Test(){
-}
-}
+    }}
+

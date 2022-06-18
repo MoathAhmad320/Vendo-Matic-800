@@ -1,16 +1,14 @@
 package com.techelevator;
 
 import com.techelevator.view.*;
-import com.techelevator.view.logs.VendingLog;
-
-import java.sql.SQLOutput;
+import com.techelevator.view.Logs.VendingLog;
 
 public class VendingMachineCLI {
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
 	private static final String MAIN_MENU_Exit = "Exit";
-	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE,MAIN_MENU_Exit };
+	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE,MAIN_MENU_Exit," "};
 	private static final String PURCHASE_MENU_FEED_MONEY ="Feed Money";
 	private static final String PURCHASE_MENU_SELECT_PRODUCT = "Select Product";
 	private static final String PURCHASE_MENU_FINISH_TRANSACTION = "Finish Transaction";
@@ -22,9 +20,6 @@ public class VendingMachineCLI {
 	}
 
 	public void run() {
-		VendingLog.setLoggerPath();
-		Inventory.setInventoryPath();
-		Inventory.restockInventory();
 		boolean menuLoop = true;
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
@@ -34,28 +29,33 @@ public class VendingMachineCLI {
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 //				set loop for second menu(purchase menu)
 //				plugged in appropriate methods for each menu slot
-				System.out.println("Current Money Provided: $"+Money.displayCurrentAmount());
-				menuLoop=true;
-				while(menuLoop==true){
+				System.out.println("Current Money Provided: $" + Money.displayCurrentAmount());
+				menuLoop = true;
+				while (menuLoop == true) {
 					String choice2 = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
-					System.out.println("Current Money Provided: $"+Money.displayCurrentAmount());
-					if(choice2.equals(PURCHASE_MENU_FEED_MONEY)) {
+					System.out.println("Current Money Provided: $" + Money.displayCurrentAmount());
+					if (choice2.equals(PURCHASE_MENU_FEED_MONEY)) {
 						Money.feedBillsInput();
 						Money.feedBillsProcessor(Money.getBillFed());
-					}
-					else if (choice2.equals(PURCHASE_MENU_SELECT_PRODUCT)){
+					} else if (choice2.equals(PURCHASE_MENU_SELECT_PRODUCT)) {
 						Inventory.showInventory();
 						Inventory.setUserChoice();
 						Inventory.purchase(Inventory.getUserChoice());
-					}
-					else if (choice2.equals(PURCHASE_MENU_FINISH_TRANSACTION)){
-						Money.changeCalculator();
+					} else if (choice2.equals(PURCHASE_MENU_FINISH_TRANSACTION)) {
+						Money.changeDivider();
 						Money.changePrinter();
-						menuLoop=false;
+						menuLoop = false;
 //					added false boolean to return to previous menu
 
-					}}
-			} else if (choice.equals(MAIN_MENU_Exit)){
+					}
+				}
+			}else if (choice.equals(" ")){
+				Inventory.salesReportMapping();
+				VendingLog.salesReport();
+				System.out.println("A new Sales Report Log has been generated.");
+//				hidden menu option 4 creates sales report
+		}else if (choice.equals(MAIN_MENU_Exit)){
+
 //				added exit code for whole program
 				System.out.println("Enjoy your snacks and have a nice day!");
 				return;
@@ -63,8 +63,12 @@ public class VendingMachineCLI {
 		}}
 
 	public static void main(String[] args) {
-
-
+//		moved logger and inventory setup to program start instead of in run method
+		VendingLog.setLoggerPath();
+		VendingLog.setSaleReportDirectoryFilePath();
+		Inventory.setInventoryPath();
+		Inventory.restockInventory();
+		System.out.print("\n"+"***********WELCOME***********"+"\n");
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
