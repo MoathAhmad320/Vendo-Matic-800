@@ -100,7 +100,7 @@ public class Inventory {
         } else {
 
             if(itemPrice.get(insertUserChoice)<=Money.getCurrentAmount()){
-                VendingLog.log(itemName.get(insertUserChoice)+" $"+Money.displayCurrentAmount()+" $"+ ((Money.displayCurrentAmount()-(((double)itemPrice.get(insertUserChoice))/100))));
+                VendingLog.log(itemName.get(insertUserChoice)+" $"+Money.displayCurrentAmount()+" $"+ ((Math.floor(100*(Money.displayCurrentAmount()-(((double)itemPrice.get(insertUserChoice))/100))))/100));
                 itemQuantity.put((insertUserChoice),itemQuantity.get(insertUserChoice)-1);
                 Money.transaction(itemPrice.get(insertUserChoice));
                 System.out.println(itemName.get(insertUserChoice)+" "+((((double)itemPrice.get(insertUserChoice))/100))+" Current Money Provided: $"+Money.displayCurrentAmount());
