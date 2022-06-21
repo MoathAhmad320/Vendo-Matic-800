@@ -17,7 +17,6 @@ public class VendingLog {
     static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
     static SimpleDateFormat dateFormatSales = new SimpleDateFormat("MM_dd_yyyy_hh_mm_a");
     static Date date = new Date();
-    //added try catch block to handle input exceptions, and end program if no filepath set.
     public static void setLoggerPath(){
         try{
             System.out.println("Please enter filepath for Audit Log file: ");
@@ -46,14 +45,14 @@ public class VendingLog {
         }catch(Exception e){System.out.println("Invalid Entry");}}
 
     public static void log(String message){
-//        cleaned up date time format
+
         try(PrintWriter logWriter = new PrintWriter(new FileOutputStream(logFile, true))){
             logWriter.println(dateFormat.format(date) + " " + message);
         }catch (Exception e){
             System.err.println(e.getMessage());
         }
     }
-//    added sales report method
+
     public static void salesReport(){
         File sales = new File(saleReportDirectory+"\\"+"SalesReport_"+dateFormatSales.format(date)+".txt");
         String salespath = sales.toString();

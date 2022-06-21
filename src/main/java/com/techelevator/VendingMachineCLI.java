@@ -27,8 +27,6 @@ public class VendingMachineCLI {
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				Inventory.showInventory();
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-//				set loop for second menu(purchase menu)
-//				plugged in appropriate methods for each menu slot
 				System.out.println("Current Money Provided: $" + Money.displayCurrentAmount());
 				menuLoop = true;
 				while (menuLoop == true) {
@@ -45,7 +43,6 @@ public class VendingMachineCLI {
 						Money.changeDivider();
 						Money.changePrinter();
 						menuLoop = false;
-//					added false boolean to return to previous menu
 
 					}
 				}
@@ -53,17 +50,14 @@ public class VendingMachineCLI {
 				Inventory.salesReportMapping();
 				VendingLog.salesReport();
 				System.out.println("A new Sales Report Log has been generated.");
-//				hidden menu option 4 creates sales report
 		}else if (choice.equals(MAIN_MENU_Exit)){
 
-//				added exit code for whole program
 				System.out.println("Enjoy your snacks and have a nice day!");
 				return;
 			}
 		}}
 
 	public static void main(String[] args) {
-//		moved logger and inventory setup to program start instead of in run method
 		VendingLog.setLoggerPath();
 		VendingLog.setSaleReportDirectoryFilePath();
 		Inventory.setInventoryPath();

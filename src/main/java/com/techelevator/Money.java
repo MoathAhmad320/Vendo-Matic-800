@@ -38,17 +38,16 @@ public class Money {
     }
 
 
-    //    New method to ask for bill amounts
+
     public static void feedBillsInput(){
         try{
             System.out.print("Please enter dollar Bill to feed into machine: $");
             Scanner input = new Scanner(System.in);
             billFed = Integer.parseInt(input.nextLine());
         } catch (Exception e){
-//            we "eat" the exception because it is addressed by the plugin method
         }}
 
-    // testable method that adds bills total
+
     public static void feedBillsProcessor(int bills){
         if (bills==1||bills==2||bills==5||bills==10||bills==20||bills==50||bills==100){
             Money.moneyInput((bills*100));
@@ -65,10 +64,9 @@ public class Money {
         changeCount.put((amount/100.0),quantity);
         currentAmount-=(amount*quantity);
     }
-//    adjusted changed method to account for ints instead of doubles
+
 
     public static void changeDivider(){
-//        added  20,50, and 100 dollar change statements and added change to audit log
         VendingLog.log("Change Dispensed $"+Money.displayCurrentAmount()+" $0.00");
         while (currentAmount > 0){
             if(currentAmount >= 10000){
@@ -93,7 +91,7 @@ public class Money {
                 changeCalculator(5);
             }
         }}
-    //        Split method because it was too long and performed multiple functions.
+
     public static void changePrinter(){
         System.out.println("Your change is:");
         for(Map.Entry<Double, Integer> billPair :Money.changeCount.entrySet() ){
@@ -108,4 +106,3 @@ public class Money {
         }changeCount.clear();
     }}
 
-//added clear map line so change runs correctly

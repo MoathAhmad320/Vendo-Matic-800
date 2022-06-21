@@ -46,7 +46,6 @@ public class Inventory {
     }
 
     public static void setInventoryPath(){
-//        added try catch block to handle input exceptions, and end program if no filepath set.
         try{
             System.out.println("Please enter filepath for inventory file: ");
             Scanner input = new Scanner(System.in);
@@ -72,7 +71,6 @@ public class Inventory {
                 itemName.put(productArr[0],productArr[1]);
                 itemType.put(productArr[0],productArr[3]);
                 itemPrice.put(productArr[0],((int)(priceConverter*100)));
-//                set price to be an int without decimal places for arithmetic operations
                 itemQuantity.put(productArr[0],5);
                 Collections.sort(itemSlot);
             }
@@ -89,7 +87,6 @@ public class Inventory {
         try{
             System.out.println("Please enter the slot of your selection: ");
             Scanner input = new Scanner(System.in);
-            //        added line to convert to Capital Case to control for lowercase slot entry
             String initialInput=input.nextLine();
             userChoice= initialInput.toUpperCase();}
         catch (Exception e){
@@ -98,8 +95,6 @@ public class Inventory {
     }
 
     public static void purchase (String insertUserChoice){
-//        added try catch block for IO errors and removed userchoice the variable from method and replaced it with
-//        a generic parameter variable so we can test method
         try {if (itemQuantity.get(insertUserChoice)==0){
             System.out.println("Sorry product is sold out");
         } else {
@@ -108,7 +103,7 @@ public class Inventory {
                 VendingLog.log(itemName.get(insertUserChoice)+" $"+Money.displayCurrentAmount()+" $"+ ((Money.displayCurrentAmount()-(((double)itemPrice.get(insertUserChoice))/100))));
                 itemQuantity.put((insertUserChoice),itemQuantity.get(insertUserChoice)-1);
                 Money.transaction(itemPrice.get(insertUserChoice));
-                System.out.println(itemName.get(insertUserChoice)+" "+itemPrice.get(insertUserChoice)+" Current Money Provided: $"+Money.displayCurrentAmount());
+                System.out.println(itemName.get(insertUserChoice)+" "+((((double)itemPrice.get(insertUserChoice))/100))+" Current Money Provided: $"+Money.displayCurrentAmount());
                 if (itemType.get(insertUserChoice).equalsIgnoreCase("Chip")){
                     System.out.println("Crunch Crunch, Yum!");
                 } else if (itemType.get(insertUserChoice).equalsIgnoreCase("Candy")){
@@ -124,7 +119,7 @@ public class Inventory {
         }}catch(Exception e){
             System.out.println("Sorry invalid slot entry, Please try again.");
         }}
-//    method for sales report
+
     public static void salesReportMapping() {
         for (String x : itemSlot) {
             salesMap.put(itemName.get(x), ((itemPrice.get(x) * (5.0 - itemQuantity.get(x))) / 100.0));

@@ -42,24 +42,4 @@ public void displayCurrentAmount_negative_Test(){
     Money.setCurrentAmount(50);
     Money.changeDivider();
     Assert.assertEquals(0,Money.getCurrentAmount());
-}
-    @Test
-    public void does_changeDivider_reset_current_amfgfgount_Test(){
-        Map<Double,Integer> t = new HashMap<>();
-
-    }
-//1 $2.00 bill
-//3 quarters
-//2 $20.00 bills
-//1 $5.00 bill
-//1 $50.00 bill
-
-
-//public static void changeCalculator(int amount){
-//        int quantity = 0;
-//        quantity = currentAmount/amount;
-//        moneyCount.put((amount/100.0),quantity);
-//        currentAmount-=(amount*quantity);
-
-
-}
+}}

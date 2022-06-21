@@ -33,7 +33,6 @@ public class Menu {
 				choice = options[selectedOption - 1];
 			}
 		} catch (NumberFormatException e) {
-			// eat the exception, an error message will be displayed below since choice will be null
 		}
 		if (choice == null) {
 			out.println(System.lineSeparator() + "*** " + userInput + " is not a valid option ***" + System.lineSeparator());
@@ -43,7 +42,8 @@ public class Menu {
 
 	private void displayMenuOptions(Object[] options) {
 		out.println();
-		for (int i = 0; i < options.length-1; i++) {
+		for (int i = 0; i < options.length; i++) {
+			if(i==3){break;}
 			int optionNum = i + 1;
 			out.println(optionNum + ") " + options[i]);
 		}
