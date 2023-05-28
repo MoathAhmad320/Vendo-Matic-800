@@ -10,7 +10,7 @@ public class Money {
     private static int currentAmount;
     private static Map<Double, Integer> changeCount = new HashMap<>();
     private static int billFed;
-//    changed currentamount to int for arithmetic operations and moneycount key to double to avoid excessive parsing
+
 
     public static int getBillFed() {
         return billFed;

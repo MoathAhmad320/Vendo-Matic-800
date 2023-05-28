@@ -50,7 +50,7 @@ public class VendingMachineCLI {
 				Inventory.salesReportMapping();
 				VendingLog.salesReport();
 				System.out.println("A new Sales Report Log has been generated.");
-		}else if (choice.equals(MAIN_MENU_Exit)){
+			}else if (choice.equals(MAIN_MENU_Exit)){
 
 				System.out.println("Enjoy your snacks and have a nice day!");
 				return;
